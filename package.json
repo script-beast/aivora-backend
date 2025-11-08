@@ -1,0 +1,49 @@
+{
+  "name": "aivora-backend",
+  "version": "1.0.0",
+  "description": "Aivora Backend API with AI-powered goal planning",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "nodemon --exec ts-node src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "lint": "eslint src/**/*.ts"
+  },
+  "keywords": [
+    "ai",
+    "goal-tracking",
+    "productivity",
+    "langchain"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@google/generative-ai": "latest",
+    "@langchain/google-genai": "latest",
+    "bcryptjs": "^2",
+    "cors": "^2",
+    "dotenv": "^16",
+    "express": "^4",
+    "express-rate-limit": "^7",
+    "express-validator": "^7",
+    "helmet": "^7",
+    "jsonwebtoken": "^9",
+    "langchain": "latest",
+    "mongoose": "^8",
+    "morgan": "^1.10.1",
+    "pdfkit": "^0.17.2",
+    "sentiment": "^5"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2",
+    "@types/cors": "^2",
+    "@types/express": "^4",
+    "@types/jsonwebtoken": "^9",
+    "@types/morgan": "^1.9.10",
+    "@types/node": "^20",
+    "@types/pdfkit": "^0.17.3",
+    "nodemon": "^3",
+    "ts-node": "^10",
+    "typescript": "^5"
+  }
+}
