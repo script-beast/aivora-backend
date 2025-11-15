@@ -61,12 +61,11 @@ export const generateReport = async (req: Request, res: Response) => {
       stats,
     });
 
-    // Set response headers for PDF download
-    const filename = `${goal.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_report.pdf`;
+    // Set response headers
     res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.setHeader('Content-Disposition', `attachment; filename="goal-report-${goalId}.pdf"`);
 
-    // Pipe the PDF document to the response
+    // Pipe PDF to response
     pdfDoc.pipe(res);
   } catch (error) {
     console.error('PDF generation error:', error);

@@ -79,8 +79,8 @@ const insightSchema = new Schema<IInsight>(
   }
 );
 
-// Compound index for unique week per goal
-insightSchema.index({ goalId: 1, weekNumber: 1 }, { unique: true });
+// Index for querying insights by goal
+insightSchema.index({ goalId: 1, generatedAt: -1 });
 insightSchema.index({ userId: 1, generatedAt: -1 });
 
 export const Insight = mongoose.model<IInsight>('Insight', insightSchema);

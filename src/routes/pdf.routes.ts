@@ -8,6 +8,6 @@ const router = Router();
 router.use(authenticate);
 
 // Generate PDF report for a goal
-router.get('/report/:goalId', generateReport);
+router.get('/goal/:goalId/report', generateReport);
 
 export default router;

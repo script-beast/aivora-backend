@@ -30,36 +30,23 @@ export const generateInsights = asyncHandler(async (req: AuthRequest, res: Respo
   // Generate insights using AI
   const insightData = await generateAIInsights(progressData);
 
-  // Calculate week number
-  const weekNumber = Math.ceil(goal.completedDays / 7);
+  // Calculate week number based on completed progress
+  const completedProgress = progressData.filter(p => p.completed);
+  const weekNumber = Math.ceil(completedProgress.length / 7);
 
-  // Save insights
-  let insight = await Insight.findOne({ goalId, weekNumber });
-
-  if (insight) {
-    // Update existing
-    insight.summary = insightData.summary;
-    insight.moodTrend = insightData.moodTrend;
-    insight.motivationLevel = insightData.motivationLevel;
-    insight.blockers = insightData.blockers;
-    insight.recommendations = insightData.recommendations;
-    insight.highlights = insightData.highlights || [];
-    insight.generatedAt = new Date();
-    await insight.save();
-  } else {
-    // Create new
-    insight = await Insight.create({
-      goalId,
-      userId: req.userId,
-      weekNumber,
-      summary: insightData.summary,
-      moodTrend: insightData.moodTrend,
-      motivationLevel: insightData.motivationLevel,
-      blockers: insightData.blockers,
-      recommendations: insightData.recommendations,
-      highlights: insightData.highlights || [],
-    });
-  }
+  // Always create a new insight (don't update existing ones)
+  // This preserves history of all generated insights
+  const insight = await Insight.create({
+    goalId,
+    userId: req.userId,
+    weekNumber,
+    summary: insightData.summary,
+    moodTrend: insightData.moodTrend,
+    motivationLevel: insightData.motivationLevel,
+    blockers: insightData.blockers,
+    recommendations: insightData.recommendations,
+    highlights: insightData.highlights || [],
+  });
 
   res.status(201).json({ insight });
 });
